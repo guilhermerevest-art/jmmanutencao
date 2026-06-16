@@ -52,7 +52,7 @@ sections.forEach(s => sectionObserver.observe(s))
 const revealEls = document.querySelectorAll(
   '.servico-card, .diferencial-item, .numero-item, .info-card, ' +
   '.sobre-text, .sobre-img-wrap, .contato-form-wrap, .contato-info, ' +
-  '.galeria-item, .depoimento-card'
+  '.depoimento-card'
 )
 revealEls.forEach(el => el.classList.add('reveal'))
 const revealObserver = new IntersectionObserver(entries => {
@@ -83,37 +83,6 @@ const countObserver = new IntersectionObserver(entries => {
   })
 }, { threshold: 0.5 })
 countEls.forEach(el => countObserver.observe(el))
-
-/* ===== LIGHTBOX ===== */
-const lightbox   = document.getElementById('lightbox')
-const lbImg      = lightbox.querySelector('.lb-img')
-const lbCaption  = lightbox.querySelector('.lb-caption')
-const lbClose    = lightbox.querySelector('.lb-close')
-const lbOverlay  = lightbox.querySelector('.lb-overlay')
-
-document.querySelectorAll('.galeria-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const img = item.querySelector('img')
-    lbImg.src = img.src.replace(/&w=\d+&h=\d+/, '&w=1200&h=900')
-    lbImg.alt = img.alt
-    lbCaption.textContent = item.dataset.label || ''
-    lightbox.classList.add('open')
-    document.body.style.overflow = 'hidden'
-    lbClose.focus()
-  })
-})
-
-function closeLightbox() {
-  lightbox.classList.remove('open')
-  document.body.style.overflow = ''
-  lbImg.src = ''
-}
-
-lbClose.addEventListener('click', closeLightbox)
-lbOverlay.addEventListener('click', closeLightbox)
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox()
-})
 
 /* ===== FORM → WHATSAPP ===== */
 document.getElementById('form-contato').addEventListener('submit', function (e) {
